@@ -1,0 +1,544 @@
+﻿<Window x:Class="DiplomStoreHouse.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiplomStoreHouse"
+        mc:Ignorable="d"
+        Title="Склад" Height="600" Width="930" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Loaded="mainWin_Loaded" x:Name="mainWin">
+    <Window.Resources>
+        <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
+            <Border CornerRadius="4" BorderBrush="Black" BorderThickness="1" TextBlock.FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <ContentPresenter  RecognizesAccessKey="True"></ContentPresenter>
+            </Border>
+        </ControlTemplate>
+    </Window.Resources>
+    <Grid Background="#D2E3E9" x:Name="grid1">
+        <TabControl Background="#D2E3E9" TabStripPlacement="Left" Margin="0,40,0,0">
+            <TabItem x:Name="tab1" Header="🧑 Сотрудники" Margin="-2,-2,0,-11" BorderBrush="#D2E3E9" Background="#D2E3E9">
+                <Grid x:Name="grid2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45"></RowDefinition>
+                        <RowDefinition Height="390"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBox Background="#D2E3E9" 
+                             HorizontalAlignment="Left" Margin="10,0,0,0" 
+                             BorderBrush="#D2E3E9" TextWrapping="Wrap"
+                             x:Name="searchEmp" TextChanged="searchEmp_TextChanged" VerticalAlignment="Center"
+                             Width="233" Height="25"/>
+                    <TextBlock x:Name="SearchEmpPlaceHolder"
+                           Text=" 🔍 Поиск"
+                           FontSize="16"
+                           Foreground="#005ED5"
+                           VerticalAlignment="Center"
+                           Margin="10,0,532,0" 
+                           IsHitTestVisible="False" 
+                           Visibility="Visible" 
+                           Height="26"/>
+                    <DataGrid x:Name="dGridEmp" CanUserResizeColumns="False" CanUserReorderColumns="False" SelectionChanged="dGridEmp_SelectionChanged"
+                              AutoGenerateColumns="False" Grid.Row="1" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Код сотрудника" Binding="{Binding EmployeeId}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Должность" Binding="{Binding Posititon}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Почта" Binding="{Binding Email}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button Content="➕Добавить сотрудника" x:Name="AddEmpl" Click="AddEmpl_Click" Template="{StaticResource ButtonTemplate}" HorizontalAlignment="Left" Margin="83,35,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+                    <Button Content="🗑️Удалить сотрудника" x:Name="DelEmpl" Click="DelEmpl_Click" Template="{StaticResource ButtonTemplate}" HorizontalAlignment="Left" Margin="560,35,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+                    <Button Content="🔄Обновить"  BorderBrush="#D2E3E9" Background="#D2E3E9" Foreground="#005ED5" FontSize="16" x:Name="resetEmpl" Click="resetEmpl_Click"  HorizontalAlignment="Left" Margin="655,0,0,0" VerticalAlignment="Center"/>
+                </Grid>
+            </TabItem>
+
+
+            <TabItem Header="🛍️ Товары и контроль" Margin="-2,21,0,-34" 
+                     BorderBrush="#D2E3E9" Background="#D2E3E9" x:Name="tab2">
+                <Grid x:Name="grid4">
+                    <TabControl Background="#D2E3E9" x:Name="tab17">
+                        <TabItem Header="🛍️Товары" x:Name="tab7"  BorderBrush="#D2E3E9" Background="#D2E3E9">
+                            <Grid x:Name="grid3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="45"></RowDefinition>
+                                    <RowDefinition Height="390"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <ListView x:Name="lvItem" 
+                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                                      Padding="8" d:ItemsSource="{d:SampleData ItemCount=8}"
+                                     Background="#D2E3E9" Margin="10" Grid.Row="1">
+                                    <ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel />
+                                        </ItemsPanelTemplate>
+                                    </ListView.ItemsPanel>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="#fff" 
+                                                BorderThickness="1" 
+                                                CornerRadius="15"
+                                                Margin="15" 
+                                                Background="#FFFCFC" 
+                                                Width="247"
+                                                Height="250">
+                                                <Border.Effect>
+                                                    <DropShadowEffect 
+                                                        Color="#002B76" 
+                                                        BlurRadius="10" 
+                                                        ShadowDepth="5" />
+                                                </Border.Effect>
+                                                <StackPanel Margin="10">
+                                                    <Image Source="{Binding d}" 
+                                                        Stretch="Uniform" 
+                                                        Height="85" 
+                                                        Margin="0,0,0,5" Width="143"/>
+                                                    <TextBlock Text="{Binding Name}" 
+                                                          FontWeight="Bold" 
+                                                          FontSize="15" 
+                                                          Foreground="#333333" 
+                                                          TextWrapping="Wrap" />
+                                                    <TextBlock
+                                                          FontWeight="SemiBold" 
+                                                          FontSize="11" 
+                                                          Foreground="#000">
+                                                          Код:
+                                                         <Run Text="{Binding ItemId}"/>
+                                                    </TextBlock>
+                                                    <TextBlock
+                                                          FontWeight="SemiBold" 
+                                                          FontSize="11" 
+                                                          Foreground="#000">
+                                                          Тип упаковки:
+                                                         <Run Text="{Binding PackageType}"/>
+                                                    </TextBlock>
+
+
+                                                    <TextBlock  
+                                                        FontWeight="SemiBold" 
+                                                        FontSize="11" 
+                                                        Foreground="#000"
+                                                        TextWrapping="Wrap">
+                                                            Вес:
+                                                        <Run Text="{Binding UnitWeight}"/>
+                                                    </TextBlock>
+                                                    <TextBlock
+                                                        FontWeight="SemiBold"
+                                                        FontSize="11" 
+                                                        Foreground="#000" 
+                                                        TextWrapping="Wrap" 
+                                                        Margin="0,0,0,5" Height="19">
+                                                        Единица измерения: 
+                                                        <Run Text="{Binding MeasurementUnit}"/>
+                                                    </TextBlock>
+
+                                                    <Button Content="Редактировать" 
+                                                        Margin="0,5,0,0" 
+                                                        Background="#D2E3E9" Foreground="Black"
+                                                        FontWeight="Bold"
+                                                        FontSize="15"
+                                                        Height="28"
+                                                         x:Name="btnEditItem"
+                                                        Click="btnEditItem_Click" 
+                                                        DataContext="{Binding}"/>
+
+                                                </StackPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                                <TextBlock Text="Список товаров на складе"
+                                      FontSize="16"
+                                      Foreground="#005ED5"
+                                      VerticalAlignment="Top"
+                                      Margin="10,13,502,0" 
+                                      IsHitTestVisible="False" 
+                                      Visibility="Visible" 
+                                      Height="26"/>
+                                <TextBox Background="#D2E3E9" HorizontalAlignment="Left" 
+                                         Margin="476,14,0,0" BorderBrush="#D2E3E9" 
+                                         TextWrapping="Wrap" x:Name="searchItem" TextChanged="searchItem_TextChanged"
+                                         VerticalAlignment="Top" Width="232" Height="24"/>
+                                <TextBlock x:Name="SearchItem"
+                                      Text=" 🔍 Поиск"
+                                      FontSize="16"
+                                      Foreground="#005ED5"
+                                      VerticalAlignment="Top"
+                                      Margin="476,13,66,0" 
+                                      IsHitTestVisible="False" 
+                                      Visibility="Visible" 
+                                      Height="26"/>
+                                <Button Content="➕Дополнить товары" x:Name="AddItem" Click="AddItem_Click" Template="{StaticResource ButtonTemplate}" 
+                                        HorizontalAlignment="Left" Margin="125,21,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+                                <Button Content="🗑️Удалить товар" x:Name="DelItem" Click="DelItem_Click" Template="{StaticResource ButtonTemplate}" 
+                                        HorizontalAlignment="Left" Margin="508,21,0,0" Grid.Row="2" VerticalAlignment="Top" Width="132"/>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="💥Контроль качества" x:Name="tab8"  BorderBrush="#D2E3E9" Background="#D2E3E9">
+                            <Grid Height="512" x:Name="grid5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="45"></RowDefinition>
+                                    <RowDefinition Height="390"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <DataGrid IsReadOnly="True" Grid.Row="1" x:Name="dGridControl"
+                                          CanUserResizeColumns="False"
+                                          CanUserReorderColumns="False"
+                                          AutoGenerateColumns="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Код контроля" Binding="{Binding QualityControlId}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Проверяемый товар" Binding="{Binding Item.Name}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Дата контроля" Binding="{Binding ControlDate}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Результат" Binding="{Binding Result}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Ответственный" Binding="{Binding ResponsibleEmployeeNavigation.LastName}"></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <TextBlock 
+                                       Text="Полный контроль качества за товарами"
+                                       FontSize="16"
+                                       Foreground="#005ED5"
+                                       VerticalAlignment="Center"
+                                       Margin="232,0,182,0" 
+                                       IsHitTestVisible="False" 
+                                       Visibility="Visible" 
+                                       Height="26"/>
+                                <Button Content="➕Установить контроль" 
+                                        HorizontalAlignment="Center" 
+                                        x:Name="AddControl"
+                                        Click="AddControl_Click"
+                                        Margin="0,21,0,0" Grid.Row="2" 
+                                        Template="{StaticResource ButtonTemplate}" 
+                                        VerticalAlignment="Top"/>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </TabItem>
+
+
+            <TabItem Header="🚚 Логистика" x:Name="tab3" Margin="-2,42,0,-56" BorderBrush="#D2E3E9" Background="#D2E3E9">
+                <Grid x:Name="grid14">
+                    <TabControl BorderBrush="#D2E3E9" x:Name="tab15" Background="#D2E3E9">
+                        <TabItem Header="📍Места хранения" BorderBrush="#D2E3E9" 
+                                 Background="#D2E3E9" x:Name="tab9">
+                            <Grid x:Name="grid6">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="45"></RowDefinition>
+                                    <RowDefinition Height="390"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <DataGrid IsReadOnly="True" Grid.Row="1" x:Name="dGridLocation"
+                                            CanUserResizeColumns="False"
+                                            CanUserReorderColumns="False"
+                                            AutoGenerateColumns="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Место хранения" Binding="{Binding LocationId}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Максимальная вместимость" Binding="{Binding MaxCapacity}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Описание" Binding="{Binding Description}"></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <TextBlock 
+                                  Text="Доступные места хранения на складе"
+                                  FontSize="16"
+                                  Foreground="#005ED5"
+                                  VerticalAlignment="Center"
+                                  Margin="242,0,207,0" 
+                                  IsHitTestVisible="False" 
+                                  Visibility="Visible" 
+                                  Height="26"/>
+                                <Button Content="🔃Изменить данные" 
+                                        x:Name="editLocation" Click="editLocation_Click"
+                                        HorizontalAlignment="Center" 
+                                        Margin="0,21,0,0" Grid.Row="2" 
+                                        Template="{StaticResource ButtonTemplate}" 
+                                        VerticalAlignment="Top"/>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="🔔Приёмка" BorderBrush="#D2E3E9"
+                                 Background="#D2E3E9" x:Name="tab10">
+                            <Grid x:Name="grid7">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="45"></RowDefinition>
+                                    <RowDefinition Height="390"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <DataGrid IsReadOnly="True" Grid.Row="1" x:Name="dGridReception"
+                                            CanUserResizeColumns="False"
+                                            CanUserReorderColumns="False"
+                                            AutoGenerateColumns="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Код приёмки" Binding="{Binding ReceptionId}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Код товара" Binding="{Binding ItemId}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Товар" Binding="{Binding NameItem}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Накладная поставщика" Binding="{Binding SupplierInvoiceNumber}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Дата принятия" Binding="{Binding ReceiptDate}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Количество в поставке" Binding="{Binding ReceivedQuantity}"></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <TextBlock 
+                                     Text="Приёмка - поступление товара на склад"
+                                     FontSize="16"
+                                     Foreground="#005ED5"
+                                     VerticalAlignment="Center"
+                                     Margin="242,0,207,0" 
+                                     IsHitTestVisible="False" 
+                                     Visibility="Visible" 
+                                     Height="26"/>
+                                <Button Content="➕Добавить поставку" 
+                                    x:Name="AddReception" Click="AddReception_Click"
+                                    HorizontalAlignment="Left" 
+                                    Margin="113,21,0,0" Grid.Row="2" 
+                                    Template="{StaticResource ButtonTemplate}" 
+                                    VerticalAlignment="Top"/>
+                                <Button Content="🔃Изменить поставку" 
+                                    x:Name="EditReception" Click="EditReception_Click"
+                                    HorizontalAlignment="Left" 
+                                    Margin="540,21,0,0" Grid.Row="2" 
+                                    Template="{StaticResource ButtonTemplate}" 
+                                    VerticalAlignment="Top"/>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="⬆️Перемещение" BorderBrush="#D2E3E9"
+                                 Background="#D2E3E9" x:Name="tab11">
+                            <Grid x:Name="grid8">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="45"></RowDefinition>
+                                    <RowDefinition Height="390"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <DataGrid IsReadOnly="True" Grid.Row="1" x:Name="dGridTransfer"
+                                      CanUserResizeColumns="False"
+                                      CanUserReorderColumns="False"
+                                      AutoGenerateColumns="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Код перемещения" Binding="{Binding TransferId}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Код товара" Binding="{Binding ItemId}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Начальное место" Binding="{Binding FromLocationId}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Конечное место" Binding="{Binding ToLocationId}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Дата перемещения" Binding="{Binding TransferDate}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Количество" Binding="{Binding Quantity}"></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <TextBlock 
+                                     Text="Перемещение доступного товара по складу"
+                                     FontSize="16"
+                                     Foreground="#005ED5"
+                                     VerticalAlignment="Center"
+                                     Margin="242,0,170,0" 
+                                     IsHitTestVisible="False" 
+                                     Visibility="Visible" 
+                                     Height="26"/>
+                                <Button Content="➕Создать перемещение" 
+                                      x:Name="AddTransfer" Click="AddTransfer_Click"
+                                      HorizontalAlignment="Center" 
+                                      Margin="0,21,0,0" Grid.Row="2" 
+                                      Template="{StaticResource ButtonTemplate}" 
+                                      VerticalAlignment="Top"/>
+
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="⏲️Отгрузка" BorderBrush="#D2E3E9"
+                                 Background="#D2E3E9" x:Name="tab12">
+                            <Grid x:Name="grid9">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="45"></RowDefinition>
+                                    <RowDefinition Height="390"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <DataGrid IsReadOnly="True" Grid.Row="1" x:Name="dGridShipment"
+                                     CanUserResizeColumns="False"
+                                     CanUserReorderColumns="False"
+                                     AutoGenerateColumns="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Код отгрузки" Binding="{Binding ShipmentId}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Код товара" Binding="{Binding ItemId}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Товар" Binding="{Binding Item.Name}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Заказчик" Binding="{Binding ClientName}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Пункт доставки" Binding="{Binding DeliveryPoint}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Ожидаемая дата" Binding="{Binding ExpectedDate}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Статус" Binding="{Binding State}"></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <TextBlock 
+                                     Text="Отгрузка товара со склада прямо к вам"
+                                     FontSize="16"
+                                     Foreground="#005ED5"
+                                     VerticalAlignment="Center"
+                                     Margin="10,0,439,0" 
+                                     IsHitTestVisible="False" 
+                                     Visibility="Visible" 
+                                     Height="26"/>
+                                <Button Content="➕Организовать отгрузку" 
+                                     x:Name="AddShipment" Click="AddShipment_Click"
+                                     HorizontalAlignment="Left" 
+                                     Margin="564,0,0,0" 
+                                     Template="{StaticResource ButtonTemplate}" 
+                                     VerticalAlignment="Center"/>
+                                <Button Content="🔃Изменить данные" 
+                                     x:Name="EditShipment" Click="EditShipment_Click"
+                                     HorizontalAlignment="Left" 
+                                     Margin="84,17,0,0" Grid.Row="2" 
+                                     Template="{StaticResource ButtonTemplate}" 
+                                     VerticalAlignment="Top"/>
+                                <Button Content="🗑️Отменить доставку" 
+                                     x:Name="DelShipment" Click="DelShipment_Click"
+                                     HorizontalAlignment="Left" 
+                                     Margin="492,17,0,0" Grid.Row="2" 
+                                     Template="{StaticResource ButtonTemplate}" 
+                                     VerticalAlignment="Top"/>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+
+                </Grid>
+            </TabItem>
+
+
+            <TabItem Header="🎛️ Управление складом" Margin="-4,65,1,-78" 
+                     BorderBrush="#D2E3E9" Background="#D2E3E9" x:Name="tab4">
+                <Grid x:Name="grid15">
+                    <TabControl BorderBrush="#D2E3E9" x:Name="tab16" Background="#D2E3E9">
+                        <TabItem Header="📦 Операции"
+                                 BorderBrush="#D2E3E9" Background="#D2E3E9"
+                                 x:Name="tab13">
+                            <Grid x:Name="grid10">
+                                <DataGrid IsReadOnly="True" x:Name="dGridOperation" CanUserResizeColumns="False" CanUserReorderColumns="False" SelectionChanged="dGridEmp_SelectionChanged"
+           AutoGenerateColumns="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Код операции" Binding="{Binding OperationId}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Тип" Binding="{Binding TypeOperation}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Начальное местоположение" Binding="{Binding StartLocationId}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Конечное местоположение" Binding="{Binding FinishLocationId}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Код товара" Binding="{Binding ItemId}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Количество" Binding="{Binding Quantity}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Завершение операции" Binding="{Binding Timestamp}"></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="🧱 Отделы склада" x:Name="tab14"
+                                 BorderBrush="#D2E3E9" Background="#D2E3E9">
+                            <Grid x:Name="grid11">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"></RowDefinition>
+                                    <RowDefinition Height="20*"></RowDefinition>
+                                    <RowDefinition Height="3*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <ListView x:Name="lvDivis" Grid.Row="1" BorderBrush="#D2E3E9" Background="#D2E3E9" 
+                                          PreviewMouseWheel="lvDivis_PreviewMouseWheel"
+                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=2}">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Height="201" Width="735">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="272*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="463*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Image Stretch="UniformToFill" Margin="60,24,60,31" Source="{Binding d}" Grid.RowSpan="3" />
+                                                <TextBlock HorizontalAlignment="Left" Margin="35,0,0,0" TextWrapping="Wrap" Text="Отдел:" VerticalAlignment="Center" Grid.Column="1"/>
+                                                <TextBlock HorizontalAlignment="Left" Margin="35,0,0,0" TextWrapping="Wrap" Text="Ответственная зона:" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
+                                                <TextBlock HorizontalAlignment="Left" Margin="35,33,0,0" TextWrapping="Wrap" Text="Руководитель:" VerticalAlignment="Top" Grid.Column="1" Grid.Row="2"/>
+                                                <TextBlock  TextWrapping="Wrap" Text="{Binding Name}" Margin="74,26,166,22" Grid.Column="1"/>
+                                                <TextBlock  TextWrapping="Wrap" Text="{Binding ResponsibilityOperation}" Margin="152,26,88,22" Grid.Column="1" Grid.Row="1"/>
+                                                <TextBlock  TextWrapping="Wrap" Text="{Binding Manager}" Margin="120,33,120,15" Grid.Column="1" Grid.Row="2"/>
+
+
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                                <Button Content="🔃 Заменить руководителя" x:Name="editWare" Click="editWare_Click" Template="{StaticResource ButtonTemplate}" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center"/>
+                                <TextBox Background="#D2E3E9" HorizontalAlignment="Left" 
+                                         Margin="10,0,0,0" BorderBrush="#D2E3E9"
+                                         TextWrapping="Wrap" x:Name="searchWare" TextChanged="searchWare_TextChanged"
+                                         VerticalAlignment="Center" Width="233" Height="25"/>
+                                <TextBlock x:Name="SearchWare"
+                                       Text=" 🔍 Поиск"
+                                       FontSize="16"
+                                       Foreground="#005ED5"
+                                       VerticalAlignment="Center"
+                                       Margin="10,0,532,0" 
+                                       IsHitTestVisible="False" 
+                                       Visibility="Visible" 
+                                       Height="26"/>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+
+                </Grid>
+            </TabItem>
+
+
+            <TabItem Header="📋 Задачи" Margin="-3,88,1,-101"
+                     BorderBrush="#D2E3E9" Background="#D2E3E9" x:Name="tab5">
+                <Grid x:Name="grid12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45"></RowDefinition>
+                        <RowDefinition Height="390"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Задачи для сотрудников склада"
+                         FontSize="16"
+                         Foreground="#005ED5"
+                         VerticalAlignment="Center"
+                         Margin="10,0,502,0" 
+                         IsHitTestVisible="False" 
+                         Visibility="Visible" 
+                         Height="26"/>
+                    <DataGrid IsReadOnly="True" x:Name="dGridTask" CanUserResizeColumns="False" CanUserReorderColumns="False" SelectionChanged="dGridEmp_SelectionChanged"
+          AutoGenerateColumns="False" Grid.Row="1">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Код задания" Binding="{Binding TaskId}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Сотрудник" Binding="{Binding Employee.LastName}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Операция" Binding="{Binding Operation.TypeOperation}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Приоритет" Binding="{Binding Priority}"></DataGridTextColumn>
+                            <DataGridTextColumn Width="*" Header="Дата начала" Binding="{Binding StartDate, StringFormat=d}"></DataGridTextColumn>
+                            <DataGridTextColumn Width="*" Header="Дата выполнения" Binding="{Binding EndDate, StringFormat=d}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button Content="➕Назначить задание" x:Name="AddTask" Click="AddTask_Click" Template="{StaticResource ButtonTemplate}" HorizontalAlignment="Left" Margin="596,0,0,0" VerticalAlignment="Center"/>
+                    <Button Content="🧮Рассчитать" x:Name="calcTask" Click="calcTask_Click" Template="{StaticResource ButtonTemplate}" HorizontalAlignment="Left" Margin="596,0,0,0" VerticalAlignment="Center" Grid.Row="2" Width="100"/>
+                    <TextBlock HorizontalAlignment="Left" Grid.Row="2" 
+                               TextWrapping="Wrap" Text="Общее количество выполненных задач: " 
+                               VerticalAlignment="Center"
+                               FontSize="16" Margin="79,0,0,0"
+                               />
+                    <TextBlock HorizontalAlignment="Left" 
+                               Margin="383,0,0,0" Grid.Row="2"
+                               FontSize="16" x:Name="answerTask"
+                               TextWrapping="Wrap" Text="" 
+                               VerticalAlignment="Center" Width="33"/>
+                </Grid>
+            </TabItem>
+
+
+            <TabItem Header="ℹ️ Информация" Margin="-2,356,0,-369" x:Name="tab6"
+                     BorderBrush="#D2E3E9" Background="#D2E3E9">
+                <Grid x:Name="grid13">
+                    <TextBlock HorizontalAlignment="Center" Margin="0,21,0,0"
+                               TextWrapping="Wrap" FontSize="20" Text="Безопасность и охрана труда" 
+                               FontWeight="Bold" VerticalAlignment="Top" Height="30" Width="295"/>
+                    <TextBlock HorizontalAlignment="Center" Margin="0,56,0,0" TextWrapping="Wrap" Text="Цель: Обеспечение контроля соблюдения требований законодательства и внутренних регламентов по охране труда и технике безопасности.
+
+" VerticalAlignment="Top" Height="42" Width="665"/>
+                    <TextBlock HorizontalAlignment="Center" Margin="0,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="422" Width="627"><Run Text="1. Нормативно-правовая база "/><LineBreak/><Run Text="Полный перечень нормативных актов и инструкций, применимых к работе склада: "/><LineBreak/><Run Text=" - Федеральный закон «Об охране труда»."/><LineBreak/><Run Text=" - Санитарные нормы и правила, ГОСТы и СНиПы, касающиеся обустройства рабочих мест и условий труда. "/><LineBreak/><Run Text=" - Внутренний приказ руководителя предприятия о правилах поведения работников на территории склада. "/><LineBreak/><Run Text="2. Требования по охране труда "/><LineBreak/><Run Text="Документальное оформление мероприятий по обеспечению безопасности: "/><LineBreak/><Run Text=" - Обязательные инструктажи по технике безопасности перед началом рабочего процесса. "/><LineBreak/><Run Text=" - Проведение регулярных медицинских осмотров сотрудников. "/><LineBreak/><Run Text=" - Организация противопожарных мероприятий и оснащение склада средствами пожаротушения. "/><LineBreak/><Run Text="3. Учёт несчастных случаев "/><LineBreak/><Run Text="Реестр зарегистрированных происшествий и чрезвычайных ситуаций: "/><LineBreak/><Run Text=" - Оформленные акты расследований произошедших нарушений правил охраны труда."/><LineBreak/><Run Text=" - Статистика травматизма среди работников и классификация видов травм. "/><LineBreak/><Run Text=" - Предложения по улучшению мер безопасности исходя из результатов расследования происшествий. "/><LineBreak/><Run Text="4. Учебно-методическое обеспечение "/><LineBreak/><Run Text="Материалы и мероприятия, направленные на повышение уровня квалификации работников: "/><LineBreak/><Run Text=" - Программы подготовки и повышения квалификации работников склада по вопросам охраны труда. "/><LineBreak/><Run Text=" - Электронные курсы и видеоматериалы по обучению безопасным методам работы. "/><LineBreak/><Run Text=" - Проверка знаний сотрудников и подтверждение соответствия требованиям безопасности. "/><LineBreak/><Run Text="5. Мониторинг условий труда "/><LineBreak/><Run Text="Методы регулярного мониторинга и оценки условий труда на предприятии: "/><LineBreak/><Run Text=" - Измерение показателей микроклимата (температура, влажность воздуха, освещенность). "/><LineBreak/><Run Text=" - Периодический осмотр технических устройств и зданий на предмет износа и повреждений. "/><LineBreak/><Run Text=" - Заключение договора на проведение аттестации рабочих мест сотрудниками специализированной организации."/></TextBlock>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <Button Content="Сменить тему" BorderBrush="#D2E3E9" Background="#D2E3E9" 
+                Foreground="#005ED5" FontSize="16" HorizontalAlignment="Left" 
+                Margin="805,10,0,0" VerticalAlignment="Top"
+                x:Name="darkLightmode" Click="darkLightmode_Click"/>
+        <Button Content="Сохранить" BorderBrush="#D2E3E9" Background="#D2E3E9" 
+        Foreground="#005ED5" FontSize="16" HorizontalAlignment="Left" 
+        Margin="10,10,0,0" VerticalAlignment="Top"
+        x:Name="SaveEx" Click="SaveEx_Click"/>
+    </Grid>
+</Window>

@@ -1,0 +1,63 @@
+﻿<Window x:Class="DiplomStoreHouse.AddEditEmpl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiplomStoreHouse"
+        mc:Ignorable="d"
+        Title="AddEditEmpl" Height="400" Width="300"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        x:Name="WinEmpl" Loaded="WinEmpl_Loaded" Background="#00A9C4">
+    <Window.Resources>
+        <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
+            <Border CornerRadius="4" BorderBrush="Black" BorderThickness="1" TextBlock.FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <ContentPresenter  RecognizesAccessKey="True"></ContentPresenter>
+            </Border>
+        </ControlTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" 
+                   Text="Фамилия" FontSize="14" VerticalAlignment="Center"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Center" x:Name="tbLastName"
+                 TextWrapping="Wrap" Text="{Binding Path=LastName}"
+                 VerticalAlignment="Center" Width="120"/>
+
+        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap"
+                   Text="Имя" FontSize="14" VerticalAlignment="Center" Grid.Row="1"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Center" x:Name="tbFirstName"
+                 TextWrapping="Wrap" Text="{Binding Path=FirstName}"
+                 VerticalAlignment="Center" Width="120" Grid.Row="1"/>
+
+        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" 
+                   Text="Должность" FontSize="14" VerticalAlignment="Center" Grid.Row="2"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Center" x:Name="tbPosititon"
+                 TextWrapping="Wrap" Text="{Binding Path=Posititon}"
+                 VerticalAlignment="Center" Width="120" Grid.Row="2"/>
+
+        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap"
+                   Text="Email" FontSize="14" VerticalAlignment="Center" Grid.Row="3"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Center" x:Name="tbEmail"
+                 TextWrapping="Wrap" Text="{Binding Path=Email}"
+                 VerticalAlignment="Center" Width="120" Grid.Row="3"/>
+        
+        <Button Content="Добавить" x:Name="btnUse" Click="btnUse_Click"
+                Template="{StaticResource ButtonTemplate}" HorizontalAlignment="Center"
+                Grid.Row="4" VerticalAlignment="Center"/>
+        <Button Content="Отмена" x:Name="btnClose" Click="btnClose_Click"
+                Template="{StaticResource ButtonTemplate}" HorizontalAlignment="Center"
+                Grid.Row="4" VerticalAlignment="Center" Grid.Column="1"/>
+
+    </Grid>
+</Window>
