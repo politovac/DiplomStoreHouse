@@ -9,13 +9,11 @@ public partial class Transfer
 
     public int ItemId { get; set; }
 
-    public string NameItem { get; set; } = null!;
-
     public string? FromLocationId { get; set; }
 
     public string? ToLocationId { get; set; }
 
-    public DateOnly TransferDate { get; set; }
+    public DateTime TransferDate { get; set; }
 
     public string Quantity { get; set; } = null!;
 

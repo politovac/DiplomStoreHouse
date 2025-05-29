@@ -313,6 +313,7 @@
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="Код перемещения" Binding="{Binding TransferId}"></DataGridTextColumn>
                                         <DataGridTextColumn Header="Код товара" Binding="{Binding ItemId}"></DataGridTextColumn>
+                                        
                                         <DataGridTextColumn Header="Начальное место" Binding="{Binding FromLocationId}"></DataGridTextColumn>
                                         <DataGridTextColumn Header="Конечное место" Binding="{Binding ToLocationId}"></DataGridTextColumn>
                                         <DataGridTextColumn Header="Дата перемещения" Binding="{Binding TransferDate}"></DataGridTextColumn>

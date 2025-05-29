@@ -115,7 +115,7 @@ namespace DiplomStoreHouse
             }
             catch (Exception ex)
             {
-                // Выводим полное сообщение об ошибке, включая внутреннее исключение
+                
                 MessageBox.Show($"Произошла ошибка: {ex.Message}\n\nПодробная информация:\n{ex.StackTrace}\n\nВнутренняя ошибка: {ex.InnerException?.Message ?? "Нет внутренней ошибки"}");
             }
         }

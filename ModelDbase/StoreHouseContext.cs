@@ -162,9 +162,9 @@ public partial class StoreHouseContext : DbContext
         modelBuilder.Entity<Transfer>(entity =>
         {
             entity.Property(e => e.FromLocationId).HasMaxLength(50);
-            entity.Property(e => e.NameItem).HasMaxLength(50);
             entity.Property(e => e.Quantity).HasMaxLength(50);
             entity.Property(e => e.ToLocationId).HasMaxLength(50);
+            entity.Property(e => e.TransferDate).HasColumnType("datetime");
 
             entity.HasOne(d => d.FromLocation).WithMany(p => p.TransferFromLocations)
                 .HasForeignKey(d => d.FromLocationId)

@@ -5,8 +5,66 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiplomStoreHouse"
         mc:Ignorable="d"
-        Title="AddTrans" Height="450" Width="800">
+        Title="AddTrans" Height="450" Width="300"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        x:Name="WinTrans" Loaded="WinTrans_Loaded" Background="#00A9C4" >
+    <Window.Resources>
+        <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
+            <Border CornerRadius="4" BorderBrush="Black" BorderThickness="1" TextBlock.FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <ContentPresenter  RecognizesAccessKey="True"></ContentPresenter>
+            </Border>
+        </ControlTemplate>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <Button Content="Добавить" x:Name="btnAddTrans" Click="btnAddTrans_Click"
+Template="{StaticResource ButtonTemplate}" HorizontalAlignment="Center"
+Grid.Row="5" VerticalAlignment="Center"/>
+        <Button Content="Отмена" x:Name="btnClose" Click="btnClose_Click"
+Template="{StaticResource ButtonTemplate}" HorizontalAlignment="Center"
+Grid.Row="5" VerticalAlignment="Center" Grid.Column="1"/>
+
+        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" 
+            Text="Код товара" FontSize="14" VerticalAlignment="Center"/>
+        <ComboBox Grid.Column="1" HorizontalAlignment="Center"
+         x:Name="cbItem" SelectedItem="{Binding Path=Item}"
+         Margin="0,29,0,0" VerticalAlignment="Top" Width="120"/>
+
+        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" 
+        Text="Начальное место" FontSize="14" VerticalAlignment="Center" Grid.Row="1"/>
+        <ComboBox Grid.Column="1" HorizontalAlignment="Center"
+     x:Name="cbStart" SelectedItem="{Binding Path=FromLocation}"
+     Margin="0,25,0,0" VerticalAlignment="Top" Width="120" Grid.Row="1"/>
+
+        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" 
+        Text="Конечное место" FontSize="14" VerticalAlignment="Top" Grid.Row="2" Margin="0,21,0,0"/>
+        <ComboBox Grid.Column="1" HorizontalAlignment="Center"
+         x:Name="cbEnd" SelectedItem="{Binding Path=ToLocation}"
+         Margin="0,21,0,0" VerticalAlignment="Top" Width="120" Grid.Row="2"/>
+        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" 
+Text="Дата" FontSize="14" VerticalAlignment="Center" Grid.Row="3"/>
+        <DatePicker Grid.Column="1" HorizontalAlignment="Center"
+                   x:Name="dpData" SelectedDate="{Binding Path=TransferDate}"
+                   Margin="0,24,0,0" Grid.Row="3" VerticalAlignment="Top"/>
+
+        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" 
+Text="Количество" FontSize="14" VerticalAlignment="Top" Grid.Row="4" Margin="0,19,0,0"/>
+        <TextBox Grid.Column="1" x:Name="tbQ"
+                 HorizontalAlignment="Center" Margin="0,19,0,0" 
+                 Grid.Row="4" TextWrapping="Wrap" 
+                 Text="{Binding Path=Quantity}" VerticalAlignment="Top" Width="120"/>
+
     </Grid>
 </Window>

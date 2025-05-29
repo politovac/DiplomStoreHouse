@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -42,31 +43,44 @@ namespace DiplomStoreHouse
         private void btnEditWare_Click(object sender, RoutedEventArgs e)
         {
             StringBuilder errors = new StringBuilder();
-            if (tbMan.Text.IsNullOrEmpty()) errors.Append("Укажите руководителя верно");
-            if (errors.Length > 0)
+
+            if (string.IsNullOrWhiteSpace(tbMan.Text))
             {
-                MessageBox.Show(errors.ToString());
-                return;
+                errors.AppendLine("Укажите руководителя.");
             }
-            try
+            else
             {
-                if (Data.warehouseDivision != null)
+                // Регулярное выражение для формата "Фамилия И.О."
+                string pattern = @"^[А-ЯЁ][а-яё]+\s+[А-ЯЁ]\.[А-ЯЁ]\.$";
+
+                if (!Regex.IsMatch(tbMan.Text.Trim(), pattern))
                 {
-                    _db.SaveChanges();
+                    errors.AppendLine("Имя руководителя должно быть указано в формате \"Фамилия И.О.\".");
                 }
-                
+            }
+                if (errors.Length > 0)
+                {
+                    MessageBox.Show(errors.ToString());
+                    return;
+                }
+                try
+                {
+                    if (Data.warehouseDivision != null)
+                    {
+                        _db.SaveChanges();
+                    }
+
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Произошла ошибка: {ex.Message}\n\nПодробная информация:\n{ex.StackTrace}\n\nВнутренняя ошибка: {ex.InnerException?.Message ?? "Нет внутренней ошибки"}");
+                }
+            }
+
+            private void btnClose_Click(object sender, RoutedEventArgs e)
+            {
                 this.Close();
             }
-            catch (Exception ex)
-            {
-                // Выводим полное сообщение об ошибке, включая внутреннее исключение
-                MessageBox.Show($"Произошла ошибка: {ex.Message}\n\nПодробная информация:\n{ex.StackTrace}\n\nВнутренняя ошибка: {ex.InnerException?.Message ?? "Нет внутренней ошибки"}");
-            }
-        }
-
-        private void btnClose_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
-}

@@ -5,8 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiplomStoreHouse"
         mc:Ignorable="d"
-        Title="EditLoc" Height="450" Width="800">
+        Title="EditLoc" Height="300" Width="300"  WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        x:Name="WinLoc" Loaded="WinLoc_Loaded" Background="#00A9C4">
+    <Window.Resources>
+        <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
+            <Border CornerRadius="4" BorderBrush="Black" BorderThickness="1" TextBlock.FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <ContentPresenter  RecognizesAccessKey="True"></ContentPresenter>
+            </Border>
+        </ControlTemplate>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock HorizontalAlignment="Center" TextAlignment="Center"
+                   TextWrapping="Wrap" Text="Максимальная вместимость" VerticalAlignment="Center"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Center"  x:Name="tbMax"
+                 TextWrapping="Wrap" Text="{Binding Path=MaxCapacity}" VerticalAlignment="Center" Width="120"/>
+
+        <TextBlock HorizontalAlignment="Center" Grid.Row="1"
+                   TextWrapping="Wrap" Text="Описание" VerticalAlignment="Center"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Center" x:Name="tbDes"
+                 Grid.Row="1" TextWrapping="Wrap" Text="{Binding Path=Description}" VerticalAlignment="Center" Width="120"/>
+
+        <Button Content="Добавить" x:Name="btnEditLoc" Click="btnEditLoc_Click"
+Template="{StaticResource ButtonTemplate}" HorizontalAlignment="Center"
+Grid.Row="5" VerticalAlignment="Center"/>
+        <Button Content="Отмена" x:Name="btnClose" Click="btnClose_Click"
+Template="{StaticResource ButtonTemplate}" HorizontalAlignment="Center"
+Grid.Row="5" VerticalAlignment="Center" Grid.Column="1"/>
     </Grid>
 </Window>

@@ -56,19 +56,19 @@ namespace DiplomStoreHouse
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             StringBuilder errors = new StringBuilder();
-            if (cbEmpl.SelectedItem == null) errors.Append("Укажите ответственного сотрудника");
-            if (cbItem.SelectedItem == null) errors.Append("Выберите товар для проверки");
+            if (cbEmpl.SelectedItem == null) errors.AppendLine("Укажите ответственного сотрудника");
+            if (cbItem.SelectedItem == null) errors.AppendLine("Выберите товар для проверки");
 
             if (dpDate.SelectedDate == null)
             {
-                errors.Append("Пожалуйста, укажите дату проверки.");
+                errors.AppendLine("Пожалуйста, укажите дату проверки.");
             }
             else if (dpDate.SelectedDate.Value < DateTime.Today)
             {
-                errors.Append("Дата проверки не может быть раньше сегодняшнего дня.");
+                errors.AppendLine("Дата проверки не может быть раньше сегодняшнего дня.");
             }
 
-            if (tbRes.Text.IsNullOrEmpty()) errors.Append("Введите результат проверки");
+            if (tbRes.Text.IsNullOrEmpty()) errors.AppendLine("Введите результат проверки");
 
             if (errors.Length > 0)
             {
