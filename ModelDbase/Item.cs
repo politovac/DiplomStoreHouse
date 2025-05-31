@@ -21,7 +21,7 @@ public partial class Item
 
     public virtual ICollection<QualityControl> QualityControls { get; set; } = new List<QualityControl>();
 
-    public virtual Reception? Reception { get; set; }
+    public virtual ICollection<Reception> Receptions { get; set; } = new List<Reception>();
 
     public virtual ICollection<Shipment> Shipments { get; set; } = new List<Shipment>();
 

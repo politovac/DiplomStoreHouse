@@ -388,7 +388,7 @@ namespace DiplomStoreHouse
         private void AddShipment_Click(object sender, RoutedEventArgs e)
         {
             Data.shipment = null;
-            AddShipment w = new();
+            AddEditShip w = new();
             w.Owner = this;
             w.ShowDialog();
             LoadInDataGrid();
@@ -399,7 +399,7 @@ namespace DiplomStoreHouse
             if (dGridShipment.SelectedItem != null)
             {
                 Data.shipment = (Shipment)dGridShipment.SelectedItem;
-                AddShipment w = new();
+                AddEditShip w = new();
                 w.Owner = this;
                 w.ShowDialog();
                 LoadInDataGrid();

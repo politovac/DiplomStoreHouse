@@ -13,9 +13,9 @@ public partial class QualityControl
 
     public string Result { get; set; } = null!;
 
-    public int? ResponsibleEmployee { get; set; }
+    public int ResponsibleEmployee { get; set; }
 
     public virtual Item Item { get; set; } = null!;
 
-    public virtual Employee? ResponsibleEmployeeNavigation { get; set; }
+    public virtual Employee ResponsibleEmployeeNavigation { get; set; } = null!;
 }

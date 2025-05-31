@@ -67,16 +67,16 @@ public partial class StoreHouseContext : DbContext
         {
             entity.ToTable("Location");
 
-            entity.Property(e => e.LocationId).HasMaxLength(50);
+            entity.Property(e => e.LocationId).HasMaxLength(10);
             entity.Property(e => e.Description).HasMaxLength(50);
             entity.Property(e => e.MaxCapacity).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Operation>(entity =>
         {
-            entity.Property(e => e.FinishLocationId).HasMaxLength(50);
+            entity.Property(e => e.FinishLocationId).HasMaxLength(10);
             entity.Property(e => e.Quantity).HasMaxLength(50);
-            entity.Property(e => e.StartLocationId).HasMaxLength(50);
+            entity.Property(e => e.StartLocationId).HasMaxLength(10);
             entity.Property(e => e.Timestamp).HasColumnType("datetime");
             entity.Property(e => e.TypeOperation).HasMaxLength(50);
 
@@ -108,6 +108,7 @@ public partial class StoreHouseContext : DbContext
 
             entity.HasOne(d => d.ResponsibleEmployeeNavigation).WithMany(p => p.QualityControls)
                 .HasForeignKey(d => d.ResponsibleEmployee)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_QualityControl_Employee");
         });
 
@@ -115,15 +116,14 @@ public partial class StoreHouseContext : DbContext
         {
             entity.ToTable("Reception");
 
-            entity.Property(e => e.ReceptionId).ValueGeneratedOnAdd();
-            entity.Property(e => e.NameItem).HasMaxLength(50);
+            entity.Property(e => e.ReceiptDate).HasColumnType("datetime");
             entity.Property(e => e.ReceivedQuantity).HasMaxLength(50);
             entity.Property(e => e.SupplierInvoiceNumber).HasMaxLength(50);
 
-            entity.HasOne(d => d.ReceptionNavigation).WithOne(p => p.Reception)
-                .HasForeignKey<Reception>(d => d.ReceptionId)
+            entity.HasOne(d => d.Item).WithMany(p => p.Receptions)
+                .HasForeignKey(d => d.ItemId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Reception_Item");
+                .HasConstraintName("FK_Reception_Item1");
         });
 
         modelBuilder.Entity<Shipment>(entity =>
@@ -131,6 +131,8 @@ public partial class StoreHouseContext : DbContext
             entity.ToTable("Shipment");
 
             entity.Property(e => e.ClientName).HasMaxLength(50);
+            entity.Property(e => e.DeliveryPoint).HasMaxLength(250);
+            entity.Property(e => e.ExpectedDate).HasColumnType("datetime");
             entity.Property(e => e.State).HasMaxLength(50);
 
             entity.HasOne(d => d.Item).WithMany(p => p.Shipments)
@@ -161,13 +163,14 @@ public partial class StoreHouseContext : DbContext
 
         modelBuilder.Entity<Transfer>(entity =>
         {
-            entity.Property(e => e.FromLocationId).HasMaxLength(50);
+            entity.Property(e => e.FromLocationId).HasMaxLength(10);
             entity.Property(e => e.Quantity).HasMaxLength(50);
-            entity.Property(e => e.ToLocationId).HasMaxLength(50);
+            entity.Property(e => e.ToLocationId).HasMaxLength(10);
             entity.Property(e => e.TransferDate).HasColumnType("datetime");
 
             entity.HasOne(d => d.FromLocation).WithMany(p => p.TransferFromLocations)
                 .HasForeignKey(d => d.FromLocationId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Transfers_Location");
 
             entity.HasOne(d => d.Item).WithMany(p => p.Transfers)
@@ -177,6 +180,7 @@ public partial class StoreHouseContext : DbContext
 
             entity.HasOne(d => d.ToLocation).WithMany(p => p.TransferToLocations)
                 .HasForeignKey(d => d.ToLocationId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Transfers_Location1");
         });
 
@@ -196,6 +200,7 @@ public partial class StoreHouseContext : DbContext
 
             entity.ToTable("WarehouseDivision");
 
+            entity.Property(e => e.Manager).HasMaxLength(70);
             entity.Property(e => e.Name).HasMaxLength(50);
             entity.Property(e => e.ResponsibilityOperation).HasMaxLength(50);
         });

@@ -89,8 +89,8 @@
                                                         ShadowDepth="5" />
                                                 </Border.Effect>
                                                 <StackPanel Margin="10">
-                                                    <Image Source="{Binding d}" 
-                                                        Stretch="Uniform" 
+                                                    <Image Source="{Binding PhotoFull1}" 
+                                                        Stretch="Uniform"  
                                                         Height="85" 
                                                         Margin="0,0,0,5" Width="143"/>
                                                     <TextBlock Text="{Binding Name}" 
@@ -269,7 +269,6 @@
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="Код приёмки" Binding="{Binding ReceptionId}"></DataGridTextColumn>
                                         <DataGridTextColumn Header="Код товара" Binding="{Binding ItemId}"></DataGridTextColumn>
-                                        <DataGridTextColumn Header="Товар" Binding="{Binding NameItem}"></DataGridTextColumn>
                                         <DataGridTextColumn Header="Накладная поставщика" Binding="{Binding SupplierInvoiceNumber}"></DataGridTextColumn>
                                         <DataGridTextColumn Header="Дата принятия" Binding="{Binding ReceiptDate}"></DataGridTextColumn>
                                         <DataGridTextColumn Header="Количество в поставке" Binding="{Binding ReceivedQuantity}"></DataGridTextColumn>
@@ -440,7 +439,7 @@
                                                     <ColumnDefinition Width="272*"></ColumnDefinition>
                                                     <ColumnDefinition Width="463*"></ColumnDefinition>
                                                 </Grid.ColumnDefinitions>
-                                                <Image Stretch="UniformToFill" Margin="60,24,60,31" Source="{Binding d}" Grid.RowSpan="3" />
+                                                <Image Stretch="Uniform"  Margin="20,0,6,0" Source="{Binding PhotoFull2}" Grid.RowSpan="3" />
                                                 <TextBlock HorizontalAlignment="Left" Margin="35,0,0,0" TextWrapping="Wrap" Text="Отдел:" VerticalAlignment="Center" Grid.Column="1"/>
                                                 <TextBlock HorizontalAlignment="Left" Margin="35,0,0,0" TextWrapping="Wrap" Text="Ответственная зона:" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
                                                 <TextBlock HorizontalAlignment="Left" Margin="35,33,0,0" TextWrapping="Wrap" Text="Руководитель:" VerticalAlignment="Top" Grid.Column="1" Grid.Row="2"/>

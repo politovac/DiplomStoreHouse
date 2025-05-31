@@ -13,7 +13,7 @@ public partial class Shipment
 
     public string DeliveryPoint { get; set; } = null!;
 
-    public DateOnly ExpectedDate { get; set; }
+    public DateTime ExpectedDate { get; set; }
 
     public string State { get; set; } = null!;
 

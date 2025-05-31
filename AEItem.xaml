@@ -5,8 +5,74 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiplomStoreHouse"
         mc:Ignorable="d"
-        Title="AEItem" Height="450" Width="800">
+        Title="AEItem" Height="400" Width="300"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        x:Name="WinItem" Loaded="WinItem_Loaded" Background="#00A9C4">
+    <Window.Resources>
+        <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
+            <Border CornerRadius="4" BorderBrush="Black" BorderThickness="1" TextBlock.FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <ContentPresenter  RecognizesAccessKey="True"></ContentPresenter>
+            </Border>
+        </ControlTemplate>
+    </Window.Resources>
     <Grid>
-        
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="137*"></ColumnDefinition>
+            <ColumnDefinition Width="163*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button Content="Выбрать изображение" x:Name="btnSelectedPhoto" Click="btnSelectedPhoto_Click"
+Template="{StaticResource ButtonTemplate}" HorizontalAlignment="Center"
+Grid.Row="5" VerticalAlignment="Center" Grid.Column="1" Height="20" Width="153"/>
+        <Button Content="Добавить  "  x:Name="btnAddItem"  Click="btnAddItem_Click"
+Template="{StaticResource ButtonTemplate}" HorizontalAlignment="Center" 
+Grid.Row="7" VerticalAlignment="Top" Height="20" Width="73" Margin="0,10,0,0"/>
+        <Button Content="Отмена" x:Name="btnClose" Click="btnClose_Click"
+Template="{StaticResource ButtonTemplate}" HorizontalAlignment="Center"
+Grid.Row="7" VerticalAlignment="Top" Grid.Column="1" Height="20" Width="50" Margin="0,10,0,0"/>
+
+        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" 
+Text="Название товара" FontSize="14" VerticalAlignment="Center"/>
+        <TextBox Grid.Column="1" x:Name="tbName"
+                 HorizontalAlignment="Center" TextWrapping="Wrap" 
+                 Text="{Binding Path=Name}" VerticalAlignment="Center" Width="120"/>
+
+        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" 
+Text="Тип упаковки" FontSize="14" VerticalAlignment="Center" Grid.Row="1"/>
+        <TextBox Grid.Column="1" x:Name="tbType"
+                 HorizontalAlignment="Center" 
+                 Grid.Row="1" TextWrapping="Wrap" 
+                 Text="{Binding Path=PackageType}" VerticalAlignment="Center" Width="120"/>
+
+        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" 
+Text="Вес" FontSize="14" VerticalAlignment="Center" Grid.Row="2"/>
+        <TextBox Grid.Column="1" x:Name="tbUnit"
+                 HorizontalAlignment="Center" 
+                 Grid.Row="2" TextWrapping="Wrap" 
+                 Text="{Binding Path=UnitWeight}" VerticalAlignment="Center" Width="120"/>
+
+        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" 
+Text="Единица измерения" FontSize="14" VerticalAlignment="Center" Grid.Row="3"/>
+        <TextBox Grid.Column="1" x:Name="tbMeasurement"
+                 HorizontalAlignment="Center" 
+                 Grid.Row="3" TextWrapping="Wrap" 
+                 Text="{Binding Path=MeasurementUnit}" VerticalAlignment="Center" Width="120"/>
+
+        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" 
+Text="Изображение" FontSize="14" VerticalAlignment="Top" Grid.Row="4" Margin="0,19,0,0"/>
+        <Image Grid.Column="1" HorizontalAlignment="Left" Source="{Binding Path=PhotoFull1}"
+               Height="94" Margin="21,0,0,0" Grid.Row="4" x:Name="img"
+               VerticalAlignment="Top" Width="118"/>
+
     </Grid>
 </Window>

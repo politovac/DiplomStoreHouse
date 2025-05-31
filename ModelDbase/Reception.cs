@@ -9,13 +9,11 @@ public partial class Reception
 
     public int ItemId { get; set; }
 
-    public string NameItem { get; set; } = null!;
-
     public string SupplierInvoiceNumber { get; set; } = null!;
 
-    public DateOnly ReceiptDate { get; set; }
+    public DateTime ReceiptDate { get; set; }
 
     public string ReceivedQuantity { get; set; } = null!;
 
-    public virtual Item ReceptionNavigation { get; set; } = null!;
+    public virtual Item Item { get; set; } = null!;
 }

@@ -9,7 +9,7 @@ namespace DiplomStoreHouse.ModelDbase
 {
     public partial class Item
     {
-        public string PhotoFull
+        public string PhotoFull1
         {
             get
             {
